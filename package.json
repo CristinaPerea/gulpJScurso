@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/CristinaPerea/gulpJScurso#readme",
   "dependencies": {
-    "gulp": "^3.9.1"
+    "gulp": "^3.9.1",
+    "static-server": "^2.0.0"
   },
   "devDependencies": {
     "gulp-uglify": "^2.1.2"
