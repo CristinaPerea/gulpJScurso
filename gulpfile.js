@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-
+var uglify = require('gulp-uglify');
 // Styles
 
 gulp.task('styles', function() {
@@ -10,7 +10,11 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
     console.log("Task de scripts");
+    return gulp.src('public/scripts/*.js')
+        .pipe(uglify())
+        .pipe(gulp.dest('public/dist'));
 });
+
 
 // Images
 
