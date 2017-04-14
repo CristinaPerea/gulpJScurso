@@ -5,7 +5,7 @@ var uglify = require('gulp-uglify');
 var SCRIPTS_PATH = 'public/scripts/**/*.js';
 var livereload = require('gulp-livereload');
 var concat = require('gulp-concat');
-
+var minifyCss = require('gulp-minify-css');
 // Paths
 
 var DIST_PATH = 'public/dist';
@@ -18,6 +18,7 @@ gulp.task('styles', function() {
     console.log("Task de estilos");
     return gulp.src(['public/css/reset.css', CSS_PATH])
         .pipe(concat('styles.css'))
+        .pipe(minifyCss())
         .pipe(gulp.dest(DIST_PATH))
         .pipe(livereload());
 });
