@@ -1,5 +1,4 @@
 // Vars
-
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var SCRIPTS_PATH = 'public/scripts/**/*.js';
@@ -11,8 +10,15 @@ var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 
-// Paths
 
+// Less plugins
+var less = require('gulp-less');
+var LessAutoprefix = require('less-plugin-autoprefix');
+var lessAutoprefix = new LessAutoprefix({
+    browsers: ['last 2 versions']
+});
+
+// Paths
 var DIST_PATH = 'public/dist';
 var SCRIPTS_PATH = 'public/scripts/**/*.js';
 var CSS_PATH = 'public/css/**/*.css';
@@ -35,8 +41,9 @@ var CSS_PATH = 'public/css/**/*.css';
         .pipe(gulp.dest(DIST_PATH))
         .pipe(livereload());
 });*/
+
 // Styles for SCSS
-gulp.task('styles', function() {
+/*gulp.task('styles', function() {
     console.log("Task de estilos");
     return gulp.src('public/scss/styles.scss')
         .pipe(plumber(function (err) {
@@ -52,10 +59,28 @@ gulp.task('styles', function() {
         .pipe(sourcemaps.write())
         .pipe(gulp.dest(DIST_PATH))
         .pipe(livereload());
+});*/
+
+// Styles for less
+gulp.task('styles', function() {
+    console.log("Task de estilos");
+    return gulp.src('public/less/styles.less')
+        .pipe(plumber(function (err) {
+            console.log('Styles Task Error');
+            console.log(err);
+            this.emit('end');
+        }))
+        .pipe(sourcemaps.init())
+        .pipe(less({
+            plugins: [lessAutoprefix]
+        }))
+        .pipe(minifyCss())
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(DIST_PATH))
+        .pipe(livereload());
 });
 
 // Scripts
-
 gulp.task('scripts', function() {
     console.log("Task de scripts");
     return gulp.src('SCRIPTS_PATH')
@@ -63,7 +88,6 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('DIST_PATH'))
         .pipe(livereload());
 });
-
 
 // Images
 
@@ -86,5 +110,6 @@ gulp.task('watch', function() {
     livereload.listen();
     gulp.watch(SCRIPTS_PATH, ['scripts']);
     //gulp.watch(CSS_PATH, ['styles']);
-    gulp.watch('public/scss/**/*.scss', ['styles']);
+    //gulp.watch('public/scss/**/*.scss', ['styles']);
+    gulp.watch('public/less/**/*.less', ['styles']);
 });
