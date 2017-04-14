@@ -6,6 +6,8 @@ var SCRIPTS_PATH = 'public/scripts/**/*.js';
 var livereload = require('gulp-livereload');
 var concat = require('gulp-concat');
 var minifyCss = require('gulp-minify-css');
+var autoprefixer = require('gulp-autoprefixer');
+
 // Paths
 
 var DIST_PATH = 'public/dist';
@@ -17,6 +19,7 @@ var CSS_PATH = 'public/css/**/*.css';
 gulp.task('styles', function() {
     console.log("Task de estilos");
     return gulp.src(['public/css/reset.css', CSS_PATH])
+        .pipe(autoprefixer())
         .pipe(concat('styles.css'))
         .pipe(minifyCss())
         .pipe(gulp.dest(DIST_PATH))
