@@ -27,9 +27,9 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
     console.log("Task de scripts");
-    return gulp.src('public/scripts/*.js')
+    return gulp.src('SCRIPTS_PATH')
         .pipe(uglify())
-        .pipe(gulp.dest('public/dist'))
+        .pipe(gulp.dest('DIST_PATH'))
         .pipe(livereload());
 });
 
@@ -54,4 +54,5 @@ gulp.task('watch', function() {
     require('./server.js');
     livereload.listen();
     gulp.watch(SCRIPTS_PATH, ['scripts']);
+    gulp.watch(CSS_PATH, ['styles']);
 });
