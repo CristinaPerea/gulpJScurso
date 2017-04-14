@@ -21,6 +21,7 @@
     "static-server": "^2.0.0"
   },
   "devDependencies": {
+    "gulp-livereload": "^3.8.1",
     "gulp-uglify": "^2.1.2"
   }
 }
