@@ -4,11 +4,22 @@ var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var SCRIPTS_PATH = 'public/scripts/**/*.js';
 var livereload = require('gulp-livereload');
+var concat = require('gulp-concat');
+
+// Paths
+
+var DIST_PATH = 'public/dist';
+var SCRIPTS_PATH = 'public/scripts/**/*.js';
+var CSS_PATH = 'public/css/**/*.css';
 
 // Styles
 
 gulp.task('styles', function() {
     console.log("Task de estilos");
+    return gulp.src(['public/css/reset.css', CSS_PATH])
+        .pipe(concat('styles.css'))
+        .pipe(gulp.dest(DIST_PATH))
+        .pipe(livereload());
 });
 
 // Scripts
