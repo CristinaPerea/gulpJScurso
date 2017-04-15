@@ -1,7 +1,6 @@
 // Vars
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
-var SCRIPTS_PATH = 'public/scripts/**/*.js';
 var livereload = require('gulp-livereload');
 var concat = require('gulp-concat');
 var minifyCss = require('gulp-minify-css');
@@ -83,9 +82,17 @@ gulp.task('styles', function() {
 // Scripts
 gulp.task('scripts', function() {
     console.log("Task de scripts");
-    return gulp.src('SCRIPTS_PATH')
+    return gulp.src(SCRIPTS_PATH)
+        .pipe(plumber(function(err) {
+            console.log('Scripts Task Error');
+            console.log(err);
+            this.emit('end');
+        }))
+        .pipe(sourcemaps.init())
         .pipe(uglify())
-        .pipe(gulp.dest('DIST_PATH'))
+        .pipe(concat('scripts.js'))
+        .pipe(sourcemaps.write())
+        .pipe(gulp.dest(DIST_PATH))
         .pipe(livereload());
 });
 
