@@ -1,3 +1,16 @@
-var name = "Cris";
+class Person{
+    constructor(name) {
+        this.name = name;
+    }
+    hello() {
+        if (typeof this.name === 'string'){
+            return 'Hello, I am ' + this.name + '!';
+        }else{
+            return "Hello!";
+        }
+    }
+}
 
-document.write('Hola ' + name + '!');
+var person = new Person('Cristina')
+
+document.write(person.hello());
