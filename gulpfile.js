@@ -128,8 +128,7 @@ gulp.task('templates', function() {
 });
 
 // Default
-
-gulp.task('default', function() {
+gulp.task('default', ['images', 'templates', 'styles', 'scripts'], function() {
     console.log("Task default");
 });
 
