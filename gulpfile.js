@@ -9,6 +9,7 @@ var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var babel = require('gulp-babel');
+var del = require('del');
 
 // Less plugins
 var less = require('gulp-less');
@@ -142,13 +143,19 @@ gulp.task('templates', function() {
         .pipe(livereload());
 });
 
+// Clean
+/*gulp.task('clean', function() {
+    return del.sync([
+        DIST_PATH
+    ]);
+});*/
+
 // Default
-gulp.task('default', ['images', 'templates', 'styles', 'scripts'], function() {
+gulp.task('default', ['clean', 'images', 'templates', 'styles', 'scripts'], function() {
     console.log("Task default");
 });
 
 // Watch
-
 gulp.task('watch', ['default'], function() {
     console.log("Task watch");
     require('./server.js');
