@@ -10,7 +10,7 @@ var sourcemaps = require('gulp-sourcemaps');
 var sass = require('gulp-sass');
 var babel = require('gulp-babel');
 var del = require('del');
-
+var zip = require('gulp-zip');
 // Less plugins
 var less = require('gulp-less');
 var LessAutoprefix = require('less-plugin-autoprefix');
@@ -144,17 +144,23 @@ gulp.task('templates', function() {
 });
 
 // Clean
-/*gulp.task('clean', function() {
+gulp.task('clean', function() {
     return del.sync([
         DIST_PATH
     ]);
-});*/
+});
 
 // Default
 gulp.task('default', ['clean', 'images', 'templates', 'styles', 'scripts'], function() {
     console.log("Task default");
 });
 
+// ZIP
+gulp.task('export', function() {
+    return gulp.src('public/**/*')
+        .pipe(zip('website.zip'))
+        .pipe(gulp.dest('./'))
+});
 // Watch
 gulp.task('watch', ['default'], function() {
     console.log("Task watch");
