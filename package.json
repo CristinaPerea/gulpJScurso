@@ -27,6 +27,7 @@
     "gulp-concat": "^2.6.1",
     "gulp-declare": "^0.3.0",
     "gulp-handlebars": "^4.0.0",
+    "gulp-imagemin": "^3.0.1",
     "gulp-less": "^3.0.5",
     "gulp-livereload": "^3.8.1",
     "gulp-minify-css": "^1.2.4",
@@ -37,6 +38,8 @@
     "gulp-uglify": "^2.1.2",
     "gulp-wrap": "^0.13.0",
     "handlebars": "^4.0.6",
+    "imagemin-jpeg-recompress": "^5.0.0",
+    "imagemin-pngquant": "^5.0.0",
     "less-plugin-autoprefix": "^1.5.1"
   }
 }

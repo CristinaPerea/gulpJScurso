@@ -16,12 +16,17 @@ var LessAutoprefix = require('less-plugin-autoprefix');
 var lessAutoprefix = new LessAutoprefix({
     browsers: ['last 2 versions']
 });
+// Image compression
+var imagemin = require('gulp-imagemin');
+var imageminPngquant = require('imagemin-pngquant');
+var imageminJpegRecompress = require('imagemin-jpeg-recompress');
 
 // Paths
 var DIST_PATH = 'public/dist';
 var SCRIPTS_PATH = 'public/scripts/**/*.js';
 var CSS_PATH = 'public/css/**/*.css';
 var TEMPLATES_PATH = 'templates/**/*.hbs';
+var IMAGES_PATH = 'public/images/**/*.{png,jpeg,jpg,gif,svg}';
 
 // Styles
 /*gulp.task('styles', function() {
@@ -106,9 +111,19 @@ gulp.task('scripts', function() {
 });
 
 // Images
-
 gulp.task('images', function() {
-    console.log("Task de imagenes");
+    return gulp.src(IMAGES_PATH)
+        .pipe(imagemin(
+            [
+                imagemin.gifsicle(),
+                imagemin.jpegtran(),
+                imagemin.optipng(),
+                imagemin.svgo(),
+                imageminPngquant(),
+                imageminJpegRecompress()
+            ]
+        ))
+        .pipe(gulp.dest(DIST_PATH + '/images'));
 });
 
 // Templates
@@ -134,7 +149,7 @@ gulp.task('default', ['images', 'templates', 'styles', 'scripts'], function() {
 
 // Watch
 
-gulp.task('watch', function() {
+gulp.task('watch', ['default'], function() {
     console.log("Task watch");
     require('./server.js');
     livereload.listen();
